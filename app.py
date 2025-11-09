@@ -20,8 +20,23 @@ app.config.suppress_callback_exceptions = True
 
 
 # Load data from csv
+import pandas as pd
+
 def load_data():
-    # To do: Completar la función 
+    # Cargar el CSV
+    df = pd.read_csv("datos_energia.csv")
+    
+    # Usar la primera columna como fecha (tal como viene el archivo del taller)
+    date_col = df.columns[0]
+    
+    # Convertir a datetime
+    df[date_col] = pd.to_datetime(df[date_col])
+    
+    # Establecer esa columna como índice
+    df.set_index(date_col, inplace=True)
+    
+    return df
+
     
 
 # Cargar datos
